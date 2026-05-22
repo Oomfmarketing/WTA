@@ -353,41 +353,102 @@
     <div class="chart-wrap"><canvas id="monthlyChart"></canvas></div>
   </section>
 
-  <div class="row">
-    <!-- Top products -->
-    <section class="card">
-      <h2>Top 10 tuotetta</h2>
-      <table>
-        <thead>
-          <tr>
-            <th class="rank"></th>
-            <th>Tuote</th>
-            <th class="num">Varaukset</th>
-            <th class="num">BM €</th>
-            <th style="width:90px">Osuus</th>
-          </tr>
-        </thead>
-        <tbody id="products-tbody"></tbody>
-      </table>
-    </section>
+  <!-- YoY card -->
+  <section class="card">
+    <h2>Vuosi vs. vuosi · kanavan trendi</h2>
+    <div class="row">
+      <div>
+        <h3 style="margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">Tammi–touko: 2026 vs 2025 (varauspäivä)</h3>
+        <table>
+          <thead><tr><th>Kk</th><th class="num">2025</th><th class="num">2026</th><th class="num">Δ</th></tr></thead>
+          <tbody id="yoy-tbody"></tbody>
+        </table>
+        <div class="notes" style="margin-top:8px;font-size:11px;">Yhteensä: <strong id="yoy-total">—</strong></div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">Kesä-elo varaukset (matkapäivä)</h3>
+        <table>
+          <thead><tr><th>Vuosi</th><th class="num">Varaukset</th><th class="num">BM €</th><th class="num">PAX</th></tr></thead>
+          <tbody id="summer-tbody"></tbody>
+        </table>
+        <div class="notes" style="margin-top:8px;font-size:11px;">2026-luku on välitilanne 21.5. — kesäkauden ennakkovaraukset eivät vielä juuri näy.</div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Vendors -->
-    <section class="card">
-      <h2>Toimittajat (kaikki)</h2>
-      <table>
-        <thead>
-          <tr>
-            <th class="rank"></th>
-            <th>Toimittaja</th>
-            <th class="num">Varaukset</th>
-            <th class="num">BM €</th>
-            <th style="width:90px">Osuus</th>
-          </tr>
-        </thead>
-        <tbody id="vendors-tbody"></tbody>
-      </table>
-    </section>
-  </div>
+  <!-- Monthly top product -->
+  <section class="card">
+    <h2>Kuukauden ykköstuote · suosituin tuote per kuukausi</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:90px">Kuukausi</th>
+          <th>Ykköstuote</th>
+          <th class="num">Varaukset</th>
+          <th class="num">BM €</th>
+          <th style="width:90px">Osuus / kk</th>
+        </tr>
+      </thead>
+      <tbody id="monthly-top-tbody"></tbody>
+    </table>
+    <div class="notes" style="margin-top:10px;font-size:11px;">
+      <strong>Huom.</strong> Hiiren päällä tuotenimi näyttää myös 2. ja 3. tuotteen. Osuus = ykkösen varaukset / kk:n yhteensä.
+    </div>
+  </section>
+
+  <!-- All products -->
+  <section class="card">
+    <h2>Tuotteet · kaikki (<span id="products-count">—</span>)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="rank"></th>
+          <th>Tuote</th>
+          <th class="num">Varaukset</th>
+          <th class="num">BM €</th>
+          <th style="width:90px">Osuus</th>
+        </tr>
+      </thead>
+      <tbody id="products-tbody"></tbody>
+    </table>
+  </section>
+
+  <!-- Vendors -->
+  <section class="card">
+    <h2>Toimittajat (kaikki) <span style="font-size:10px;font-weight:500;color:var(--muted);text-transform:none;letter-spacing:0;">· "Elämys Group" = white-label-myynti partneriyrityksille ilman omaa Bokunia</span></h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="rank"></th>
+          <th>Toimittaja</th>
+          <th class="num">Varaukset</th>
+          <th class="num">BM €</th>
+          <th style="width:90px">Osuus</th>
+        </tr>
+      </thead>
+      <tbody id="vendors-tbody"></tbody>
+    </table>
+  </section>
+
+  <!-- Vendor mix shift -->
+  <section class="card">
+    <h2>Toimittajakannan muutos · 2024 → 2025</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Toimittaja</th>
+          <th class="num">2024 osuus</th>
+          <th class="num">2025 osuus</th>
+          <th class="num">Δ %-yks.</th>
+        </tr>
+      </thead>
+      <tbody id="vendor-shift-tbody"></tbody>
+    </table>
+    <div class="notes" style="margin-top:10px;">
+      <strong>Tulkinta.</strong> Useat aiemmin volyymivahvat toimittajat (Höyrylaiva s/s Ukkopekka, Paimion parantola) ovat siirtyneet omiin myyntikanaviinsa (oma Bokun, GetYourGuide, Viator). Elämys Groupin white-label-vehikkeli kompensoi prosenttiosuudessa, mutta absoluuttinen kanavan volyymi ei kasva (vrt. yllä Tammi–touko 2026 vs 2025).
+    </div>
+  </section>
+
 
   <div class="row">
     <!-- Geography -->
@@ -409,6 +470,9 @@
       <div class="notes" style="margin-top:14px">
         <strong>Huom.</strong> Kansainvälinen osuus <span id="intl-share-note">—</span>% — Visit Turku Archipelagon strateginen tavoite on kasvattaa tätä (vrt. kansallinen ka. ~28%).
       </div>
+      <div class="notes" style="margin-top:10px">
+        <strong>Saaristo-tuotteet vs. muut.</strong> <span id="saaristo-comparison">—</span>
+      </div>
     </section>
 
     <!-- Lead time + status -->
@@ -424,13 +488,32 @@
     </section>
   </div>
 
+
+  <!-- Channel architecture facts -->
+  <section class="card">
+    <h2>Kanavan arkkitehtuuri · faktat</h2>
+    <div class="row">
+      <div>
+        <h3 style="margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">Marketplace-virta</h3>
+        <div class="stat-row"><span class="label">Varauksia <code>resold=true</code></span><span class="value"><span id="resold-pct">—</span>% (<span id="resold-count">—</span>/<span id="resold-total">—</span>)</span></div>
+        <div class="stat-row"><span class="label">Suoria varauksia myyntitilille</span><span class="value">0</span></div>
+        <div class="notes" style="margin-top:8px;font-size:11px;">Kaikki Book Turku -kanavan varaukset kulkevat marketplace-sopimuksella: tuotanto <code>elamysdmc.bokun.io</code> → myynti <em>finlandtravelcenter</em>-Bokuniin. Suoraa myyntiä myyntitilille ei ole.</div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">Provisio</h3>
+        <div class="stat-row"><span class="label">Keskim. <code>sellerCommission</code></span><span class="value"><span id="comm-pct">—</span>% BM:stä</span></div>
+        <div class="stat-row"><span class="label">Provisiosumma jaksolla</span><span class="value"><span id="comm-eur">—</span> €</span></div>
+        <div class="notes" style="margin-top:8px;font-size:11px;">FAS-huomio: kanavalla 100% resold + matala 12% komissio → LV/BM-suhde on todennäköisesti eri kuin ETD/B&amp;E:n yleinen 34%. Tarkistettava hallinnonkirjanpidosta ennen LV-tulkintaa.</div>
+      </div>
+    </div>
+  </section>
   <!-- Notes -->
   <section class="card">
     <h2>Mistä luvut tulevat &amp; mitä ne tarkoittavat</h2>
     <div class="notes">
       <p style="margin:0 0 10px;"><strong>Lähde.</strong> Kaikki luvut on haettu suoraan Bokún REST -rajapinnasta <code>POST /booking.json/product-booking-search</code> ja suodatettu <strong>Book Turku</strong> -kanavalle (Bokún channel "Book Turku", channelId 270809). Mukaan otetaan tilat <code>CONFIRMED</code> ja <code>ARRIVED</code>; <code>CANCELLED</code> ja <code>NO_SHOW</code> näkyvät erikseen statusjakaumassa eivätkä KPI-summissa.</p>
       <p style="margin:0 0 10px;"><strong>Bruttomyynti (BM) ≠ FAS-liikevaihto.</strong> BM on kanavan kautta kulkenut bruttobookingarvo. ETD/B&amp;E:n FAS-LV koostuu omasta myynnistä + komissioista (LV/BM ≈ 34%). Tätä lukua ei pidä sekoittaa hallinto­raportointiin ilman muunnosta.</p>
-      <p style="margin:0 0 10px;"><strong>Jakso &amp; tuoreus.</strong> Data kattaa Bokún-haun palauttamat varaukset jaksolla, joka näkyy ylhäällä. Päivitys on tällä hetkellä manuaalinen snapshot; tuotantoversio (oomfmarketing/bookturku-trends, GitHub Pages) päivittyy automaattisesti 4 h välein GitHub Actions -ajolla.</p>
+      <p style="margin:0 0 10px;"><strong>Jakso &amp; tuoreus.</strong> Data kattaa Bokún-haun palauttamat varaukset jaksolla, joka näkyy ylhäällä. <strong>Tämä on manuaalinen snapshot</strong> (rakennettu 2026-05-22 datasta 2026-05-21 saakka). Suunnitelmissa on automaattisesti 4 h välein päivittyvä versio GitHub Actionsilla — kun se on käytössä, tämä lukutila vaihtuu.</p>
       <p style="margin:0;"><strong>Tietosuoja.</strong> Ei henkilötason kenttiä — kaikki KPI:t ovat aggregaatteja. Toimittaja- ja tuotetason luvut on jätetty näkyviin tämän jakoversion osalta (CEO:n päätös 2026-05-22).</p>
     </div>
   </section>
@@ -443,8 +526,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <script>
-const DATA = {"window": {"start": "2024-01-01", "end": "2026-05-21"}, "fetched_at": "2026-05-21T19:22:52.624473+00:00", "totals": {"orders": 423, "gross": 32755, "pax": 956, "vendors": 11, "products": 63}, "status_distribution": {"CONFIRMED": 254, "ARRIVED": 169, "NO_SHOW": 6, "CANCELLED": 7}, "lead_time": {"count": 423, "median_days": 5, "p25_days": 1, "p75_days": 13, "mean_days": 26.7}, "months": [{"ym": "2024-04", "orders": 3, "gross": 240, "pax": 4}, {"ym": "2024-05", "orders": 8, "gross": 689, "pax": 17}, {"ym": "2024-06", "orders": 16, "gross": 1979, "pax": 34}, {"ym": "2024-07", "orders": 47, "gross": 4333, "pax": 113}, {"ym": "2024-08", "orders": 64, "gross": 4080, "pax": 130}, {"ym": "2024-09", "orders": 23, "gross": 988, "pax": 40}, {"ym": "2024-10", "orders": 14, "gross": 1136, "pax": 59}, {"ym": "2024-11", "orders": 9, "gross": 540, "pax": 18}, {"ym": "2024-12", "orders": 14, "gross": 862, "pax": 24}, {"ym": "2025-01", "orders": 4, "gross": 353, "pax": 12}, {"ym": "2025-02", "orders": 1, "gross": 30, "pax": 2}, {"ym": "2025-03", "orders": 3, "gross": 213, "pax": 8}, {"ym": "2025-04", "orders": 2, "gross": 93, "pax": 3}, {"ym": "2025-05", "orders": 9, "gross": 2364, "pax": 50}, {"ym": "2025-06", "orders": 34, "gross": 2277, "pax": 66}, {"ym": "2025-07", "orders": 105, "gross": 8073, "pax": 230}, {"ym": "2025-08", "orders": 47, "gross": 2678, "pax": 97}, {"ym": "2025-09", "orders": 5, "gross": 199, "pax": 10}, {"ym": "2025-10", "orders": 2, "gross": 60, "pax": 4}, {"ym": "2025-11", "orders": 3, "gross": 260, "pax": 6}, {"ym": "2025-12", "orders": 3, "gross": 486, "pax": 9}, {"ym": "2026-01", "orders": 1, "gross": 54, "pax": 1}, {"ym": "2026-03", "orders": 2, "gross": 150, "pax": 4}, {"ym": "2026-04", "orders": 1, "gross": 120, "pax": 6}, {"ym": "2026-05", "orders": 3, "gross": 497, "pax": 9}], "products": [{"title": "Guided tour: Spaces and Stories of Paimio Sanatorium in Finnish", "orders": 66, "gross": 3405, "pax": 147}, {"title": "Turku: Day trips to Seili", "orders": 39, "gross": 4018, "pax": 86}, {"title": "Day Steamship Cruises Turku - Naantali - Turku", "orders": 34, "gross": 2991, "pax": 82}, {"title": "Turku–Naantali–Turku Archipelago Cruise, M/S Princess Caroline", "orders": 28, "gross": 2145, "pax": 65}, {"title": "Food Walk 2026", "orders": 25, "gross": 3651, "pax": 69}, {"title": "Moominworld Car Park and bus transportation ticket", "orders": 17, "gross": 285, "pax": 18}, {"title": "Dinner Cruise to island of Loistokari", "orders": 17, "gross": 2237, "pax": 33}, {"title": "Turku-Naantali Archipelago Cruise", "orders": 16, "gross": 688, "pax": 36}, {"title": "Rosita Risteilyt – 2 tunnin Airisto-risteily", "orders": 16, "gross": 812, "pax": 33}, {"title": "Turku: Self-guided beer tasting in local Brewery at Kakola", "orders": 16, "gross": 450, "pax": 30}], "vendors": [{"title": "Elämys Group", "orders": 194, "gross": 15414, "pax": 447}, {"title": "Paimion parantola – Paimio Sanatorium", "orders": 67, "gross": 3445, "pax": 149}, {"title": "Höyrylaiva s/s Ukkopekka", "orders": 55, "gross": 6006, "pax": 126}, {"title": "Magni Mundi Oy", "orders": 50, "gross": 1959, "pax": 118}, {"title": "CT Ravintolat", "orders": 28, "gross": 3986, "pax": 74}, {"title": "Muumimaailma Oy / Moominworld", "orders": 18, "gross": 363, "pax": 20}, {"title": "Naawa - Nature Awakening", "orders": 4, "gross": 650, "pax": 8}, {"title": "Aavameri", "orders": 3, "gross": 400, "pax": 4}, {"title": "Turun Saaristomatkat", "orders": 2, "gross": 458, "pax": 4}, {"title": "Villa Wolax oy", "orders": 1, "gross": 50, "pax": 2}, {"title": "Rosala Vikingcentrum", "orders": 1, "gross": 24, "pax": 4}], "countries": [{"code": "FI", "orders": 384, "gross": 28934, "pax": 846}, {"code": "US", "orders": 6, "gross": 508, "pax": 37}, {"code": "GB", "orders": 5, "gross": 192, "pax": 9}, {"code": "FR", "orders": 5, "gross": 551, "pax": 12}, {"code": "UNKNOWN", "orders": 4, "gross": 321, "pax": 12}, {"code": "DE", "orders": 3, "gross": 146, "pax": 6}, {"code": "IT", "orders": 3, "gross": 354, "pax": 6}, {"code": "SE", "orders": 3, "gross": 288, "pax": 6}, {"code": "JP", "orders": 2, "gross": 435, "pax": 6}, {"code": "AU", "orders": 2, "gross": 114, "pax": 2}, {"code": "LT", "orders": 1, "gross": 92, "pax": 2}, {"code": "ES", "orders": 1, "gross": 96, "pax": 3}, {"code": "CA", "orders": 1, "gross": 355, "pax": 1}, {"code": "AT", "orders": 1, "gross": 96, "pax": 4}, {"code": "NO", "orders": 1, "gross": 81, "pax": 1}, {"code": "LV", "orders": 1, "gross": 192, "pax": 3}]};
-
+const DATA = {"window": {"start": "2024-01-01", "end": "2026-05-21"}, "fetched_at": "2026-05-21T19:22:52.624473+00:00", "totals": {"orders": 423, "gross": 32755, "pax": 956, "vendors": 11, "products": 63}, "status_distribution": {"CONFIRMED": 254, "ARRIVED": 169, "NO_SHOW": 6, "CANCELLED": 7}, "lead_time": {"count": 423, "median_days": 5, "p25_days": 1, "p75_days": 13, "mean_days": 26.7}, "months": [{"ym": "2024-04", "orders": 3, "gross": 240, "pax": 4}, {"ym": "2024-05", "orders": 8, "gross": 689, "pax": 17}, {"ym": "2024-06", "orders": 16, "gross": 1979, "pax": 34}, {"ym": "2024-07", "orders": 47, "gross": 4333, "pax": 113}, {"ym": "2024-08", "orders": 64, "gross": 4080, "pax": 130}, {"ym": "2024-09", "orders": 23, "gross": 988, "pax": 40}, {"ym": "2024-10", "orders": 14, "gross": 1136, "pax": 59}, {"ym": "2024-11", "orders": 9, "gross": 540, "pax": 18}, {"ym": "2024-12", "orders": 14, "gross": 862, "pax": 24}, {"ym": "2025-01", "orders": 4, "gross": 353, "pax": 12}, {"ym": "2025-02", "orders": 1, "gross": 30, "pax": 2}, {"ym": "2025-03", "orders": 3, "gross": 213, "pax": 8}, {"ym": "2025-04", "orders": 2, "gross": 93, "pax": 3}, {"ym": "2025-05", "orders": 9, "gross": 2364, "pax": 50}, {"ym": "2025-06", "orders": 34, "gross": 2277, "pax": 66}, {"ym": "2025-07", "orders": 105, "gross": 8073, "pax": 230}, {"ym": "2025-08", "orders": 47, "gross": 2678, "pax": 97}, {"ym": "2025-09", "orders": 5, "gross": 199, "pax": 10}, {"ym": "2025-10", "orders": 2, "gross": 60, "pax": 4}, {"ym": "2025-11", "orders": 3, "gross": 260, "pax": 6}, {"ym": "2025-12", "orders": 3, "gross": 486, "pax": 9}, {"ym": "2026-01", "orders": 1, "gross": 54, "pax": 1}, {"ym": "2026-03", "orders": 2, "gross": 150, "pax": 4}, {"ym": "2026-04", "orders": 1, "gross": 120, "pax": 6}, {"ym": "2026-05", "orders": 3, "gross": 497, "pax": 9}], "products_all": [{"title": "Guided tour: Spaces and Stories of Paimio Sanatorium in Finnish", "orders": 66, "gross": 3405, "pax": 147}, {"title": "Turku: Day trips to Seili", "orders": 39, "gross": 4018, "pax": 86}, {"title": "Day Steamship Cruises Turku - Naantali - Turku", "orders": 34, "gross": 2991, "pax": 82}, {"title": "Turku–Naantali–Turku Archipelago Cruise, M/S Princess Caroline", "orders": 28, "gross": 2145, "pax": 65}, {"title": "Food Walk 2026", "orders": 25, "gross": 3651, "pax": 69}, {"title": "Dinner Cruise to island of Loistokari", "orders": 17, "gross": 2237, "pax": 33}, {"title": "Moominworld Car Park and bus transportation ticket", "orders": 17, "gross": 285, "pax": 18}, {"title": "Rosita Risteilyt – 2 tunnin Airisto-risteily", "orders": 16, "gross": 812, "pax": 33}, {"title": "Turku-Naantali Archipelago Cruise", "orders": 16, "gross": 688, "pax": 36}, {"title": "Turku: Self-guided beer tasting in local Brewery at Kakola", "orders": 16, "gross": 450, "pax": 30}, {"title": "Explore Medieval Turku - Walking Tour", "orders": 15, "gross": 435, "pax": 29}, {"title": "Archipelago Cruise + Salmon Soup, Turku–Naantali–Turku", "orders": 14, "gross": 1318, "pax": 29}, {"title": "Vices of the Old Turku Walking Tour", "orders": 12, "gross": 315, "pax": 21}, {"title": "Turku: Day trips to Nauvo", "orders": 9, "gross": 961, "pax": 23}, {"title": "Turku: Admission fee to Forum Marinum Maritime Museum", "orders": 9, "gross": 301, "pax": 31}, {"title": "Turku: Seafood platter for 2 to go", "orders": 8, "gross": 670, "pax": 9}, {"title": "Sauvo: Afternoon tea at Kaninkolon kukkapuisto", "orders": 6, "gross": 551, "pax": 13}, {"title": "Turku: Cake and bubbles cake buffet at Turku Market Hall MBakery", "orders": 5, "gross": 242, "pax": 11}, {"title": "Shitty history of Turku - Walking Tour", "orders": 5, "gross": 150, "pax": 10}, {"title": "Midsummer dinner cruise to Loistokari island", "orders": 4, "gross": 778, "pax": 11}, {"title": "Beginners kayaking tour", "orders": 4, "gross": 650, "pax": 8}, {"title": "Turku Dark Side Walking Tour", "orders": 4, "gross": 120, "pax": 8}, {"title": "Dark stories of Turku - Private Group Walking Tour", "orders": 3, "gross": 340, "pax": 17}, {"title": "Turku: Everyday getaway at Kakola Spa", "orders": 3, "gross": 254, "pax": 6}, {"title": "Naantali-Turku Archipelago Cruise", "orders": 3, "gross": 132, "pax": 7}, {"title": "Riverside Walk -  Public Walking tour in Turku", "orders": 3, "gross": 90, "pax": 6}, {"title": "Turku: Admission to Turku Art Museum", "orders": 3, "gross": 26, "pax": 3}, {"title": "Turku: Kakola’s Big Feast", "orders": 2, "gross": 440, "pax": 5}, {"title": "Naantali: Summer Chefs weeks", "orders": 2, "gross": 360, "pax": 6}, {"title": "Turku: Guided Beer Tasting in local Brewery at Kakola", "orders": 2, "gross": 275, "pax": 11}, {"title": "Turku Archipelago Kayaking Evening", "orders": 2, "gross": 130, "pax": 2}, {"title": "Last trip on Airisto - True Crime Walking Tour", "orders": 2, "gross": 126, "pax": 6}, {"title": "Discover the Magic of the Archipelago National Park: Private Sea Kayaking Tour 3 hour", "orders": 1, "gross": 360, "pax": 3}, {"title": "Historical Turku with a guide - from Cathedral to Castle", "orders": 1, "gross": 355, "pax": 1}, {"title": "Turku: Kakola’s Feast", "orders": 1, "gross": 276, "pax": 4}, {"title": "Guided Turku Archipelago Kayaking Day", "orders": 1, "gross": 270, "pax": 2}, {"title": "Turku-Naantali: Turku and Naantali in a Nutshell ", "orders": 1, "gross": 250, "pax": 2}, {"title": "The Archipelago Trail", "orders": 1, "gross": 238, "pax": 2}, {"title": "Ihastuttava Seilin saari", "orders": 1, "gross": 220, "pax": 2}, {"title": "Explore Medieval Turku - Get to know Turku and its origins ", "orders": 1, "gross": 200, "pax": 27}, {"title": "Koe Saaristomeren taika – Kevyt melontaretki Korppoossa", "orders": 1, "gross": 160, "pax": 2}, {"title": "Restaurant NOBI's surprise menu", "orders": 1, "gross": 138, "pax": 2}, {"title": "NOOA´s Tasting Menu", "orders": 1, "gross": 138, "pax": 2}, {"title": "Archipelago Cruise + Cold Buffet, Turku–Naantali–Turku", "orders": 1, "gross": 130, "pax": 2}, {"title": "Dark stories of Turku - Walking Tour", "orders": 1, "gross": 100, "pax": 5}, {"title": "Moominworld Ticket for one day", "orders": 1, "gross": 78, "pax": 2}, {"title": "Tårget Tasting Menu", "orders": 1, "gross": 59, "pax": 1}, {"title": "Turku: Pinkspiration - Barbi Exhibition at Taiteen talo with ice cream for families", "orders": 1, "gross": 54, "pax": 3}, {"title": "Rosita Risteilyt – Päivä Vepsässä", "orders": 1, "gross": 50, "pax": 2}, {"title": "SUP board rent at Kuusisto island", "orders": 1, "gross": 50, "pax": 2}, {"title": "Experience Life on a Leaf - Public tour", "orders": 1, "gross": 50, "pax": 2}, {"title": "Guided tour: Glimpses of Paimio Sanatorium", "orders": 1, "gross": 40, "pax": 2}, {"title": "Turku: Cruise along the river Aura!", "orders": 1, "gross": 38, "pax": 2}, {"title": "Turku Crime Walking Tour", "orders": 1, "gross": 30, "pax": 2}, {"title": "Turku Rocks - Walking Tour", "orders": 1, "gross": 28, "pax": 2}, {"title": "Visit to Rosala Viking Centre", "orders": 1, "gross": 24, "pax": 4}, {"title": "The Other 29 Fires in Turku - Public Walking tour", "orders": 1, "gross": 15, "pax": 1}, {"title": "Christmas Walk - Walking Tour in Turku", "orders": 1, "gross": 15, "pax": 1}, {"title": "Trade through ages in Turku - Tour the Market Hall and the Hansa Mall", "orders": 1, "gross": 15, "pax": 1}, {"title": "Old Medieval Turku - Walking Tour", "orders": 1, "gross": 15, "pax": 1}, {"title": "Sauvo: Visit Kaninkolo Flower Park", "orders": 1, "gross": 13, "pax": 1}, {"title": "Turku: Guided eBike tour in the city center", "orders": 0, "gross": 0, "pax": 0}, {"title": "Turku: Elegant Ladies in Turku -walking tour from Cotton to Bishop", "orders": 0, "gross": 0, "pax": 0}], "monthly_top": [{"ym": "2024-04", "month_total_orders": 3, "top3": [{"title": "Turku: Seafood platter for 2 to go", "orders": 3, "gross": 240, "pax": 4}]}, {"ym": "2024-05", "month_total_orders": 8, "top3": [{"title": "Day Steamship Cruises Turku - Naantali - Turku", "orders": 4, "gross": 383, "pax": 10}, {"title": "Turku: Kakola’s Big Feast", "orders": 1, "gross": 176, "pax": 2}, {"title": "Turku: Seafood platter for 2 to go", "orders": 1, "gross": 50, "pax": 1}]}, {"ym": "2024-06", "month_total_orders": 16, "top3": [{"title": "Midsummer dinner cruise to Loistokari island", "orders": 4, "gross": 778, "pax": 11}, {"title": "Day Steamship Cruises Turku - Naantali - Turku", "orders": 3, "gross": 367, "pax": 8}, {"title": "Dinner Cruise to island of Loistokari", "orders": 2, "gross": 273, "pax": 4}]}, {"ym": "2024-07", "month_total_orders": 47, "top3": [{"title": "Day Steamship Cruises Turku - Naantali - Turku", "orders": 14, "gross": 1197, "pax": 35}, {"title": "Dinner Cruise to island of Loistokari", "orders": 10, "gross": 1418, "pax": 20}, {"title": "Sauvo: Afternoon tea at Kaninkolon kukkapuisto", "orders": 3, "gross": 257, "pax": 6}]}, {"ym": "2024-08", "month_total_orders": 64, "top3": [{"title": "Guided tour: Spaces and Stories of Paimio Sanatorium ", "orders": 34, "gross": 1700, "pax": 74}, {"title": "Day Steamship Cruises Turku - Naantali - Turku", "orders": 13, "gross": 1043, "pax": 29}, {"title": "Dinner Cruise to island of Loistokari", "orders": 3, "gross": 256, "pax": 5}]}, {"ym": "2024-09", "month_total_orders": 23, "top3": [{"title": "Guided tour: Spaces and Stories of Paimio Sanatorium ", "orders": 13, "gross": 475, "pax": 20}, {"title": "Dinner Cruise to island of Loistokari", "orders": 2, "gross": 290, "pax": 4}, {"title": "Turku: Self-guided beer tasting in local Brewery at Kakola", "orders": 2, "gross": 60, "pax": 4}]}, {"ym": "2024-10", "month_total_orders": 14, "top3": [{"title": "Guided tour: Spaces and Stories of Paimio Sanatorium ", "orders": 4, "gross": 290, "pax": 12}, {"title": "Vices of the Old Turku Walking Tour", "orders": 2, "gross": 60, "pax": 4}, {"title": "Turku: Kakola’s Big Feast", "orders": 1, "gross": 264, "pax": 3}]}, {"ym": "2024-11", "month_total_orders": 9, "top3": [{"title": "Explore Medieval Turku - Walking Tour", "orders": 3, "gross": 90, "pax": 6}, {"title": "Guided tour: Spaces and Stories of Paimio Sanatorium ", "orders": 2, "gross": 100, "pax": 4}, {"title": "Turku: Kakola’s Feast", "orders": 1, "gross": 276, "pax": 4}]}, {"ym": "2024-12", "month_total_orders": 14, "top3": [{"title": "Food Walk ", "orders": 7, "gross": 539, "pax": 11}, {"title": "Turku: Self-guided beer tasting in local Brewery at Kakola", "orders": 3, "gross": 90, "pax": 6}, {"title": "NOOA´s Tasting Menu", "orders": 1, "gross": 138, "pax": 2}]}, {"ym": "2025-01", "month_total_orders": 4, "top3": [{"title": "Guided tour: Spaces and Stories of Paimio Sanatorium ", "orders": 1, "gross": 170, "pax": 7}, {"title": "Restaurant NOBI's surprise menu", "orders": 1, "gross": 138, "pax": 2}, {"title": "Explore Medieval Turku - Walking Tour", "orders": 1, "gross": 30, "pax": 2}]}, {"ym": "2025-02", "month_total_orders": 1, "top3": [{"title": "Turku Dark Side Walking Tour", "orders": 1, "gross": 30, "pax": 2}]}, {"ym": "2025-03", "month_total_orders": 3, "top3": [{"title": "Dark stories of Turku - Walking Tour", "orders": 1, "gross": 100, "pax": 5}, {"title": "Food Walk ", "orders": 1, "gross": 98, "pax": 2}, {"title": "Turku: Self-guided beer tasting in local Brewery at Kakola", "orders": 1, "gross": 15, "pax": 1}]}, {"ym": "2025-04", "month_total_orders": 2, "top3": [{"title": "Food Walk ", "orders": 1, "gross": 49, "pax": 1}, {"title": "Turku: Cake and bubbles cake buffet at Turku Market Hall MBakery", "orders": 1, "gross": 44, "pax": 2}]}, {"ym": "2025-05", "month_total_orders": 9, "top3": [{"title": "Food Walk ", "orders": 3, "gross": 1723, "pax": 32}, {"title": "Discover the Magic of the Archipelago National Park: Private Sea Kayaking Tour 3 hour", "orders": 1, "gross": 360, "pax": 3}, {"title": "Dark stories of Turku - Private Group Walking Tour", "orders": 1, "gross": 120, "pax": 6}]}, {"ym": "2025-06", "month_total_orders": 34, "top3": [{"title": "Moominworld Car Park and bus transportation ticket", "orders": 5, "gross": 80, "pax": 5}, {"title": "Turku–Naantali–Turku Archipelago Cruise", "orders": 4, "gross": 231, "pax": 7}, {"title": "Explore Medieval Turku - Walking Tour", "orders": 4, "gross": 120, "pax": 8}]}, {"ym": "2025-07", "month_total_orders": 105, "top3": [{"title": "Turku: Day trips to Seili", "orders": 26, "gross": 2702, "pax": 58}, {"title": "Turku–Naantali–Turku Archipelago Cruise", "orders": 20, "gross": 1518, "pax": 46}, {"title": "Archipelago Cruise + Salmon Soup, Turku–Naantali–Turku", "orders": 12, "gross": 1180, "pax": 26}]}, {"ym": "2025-08", "month_total_orders": 47, "top3": [{"title": "Rosita Risteilyt – 2 tunnin Airisto-risteily", "orders": 12, "gross": 550, "pax": 22}, {"title": "Turku: Day trips to Seili", "orders": 9, "gross": 799, "pax": 17}, {"title": "Turku-Naantali Archipelago Cruise", "orders": 5, "gross": 224, "pax": 12}]}, {"ym": "2025-09", "month_total_orders": 5, "top3": [{"title": "Shitty history of Turku - Walking Tour", "orders": 1, "gross": 60, "pax": 4}, {"title": "Food Walk ", "orders": 1, "gross": 54, "pax": 1}, {"title": "Turku: Cruise along the river Aura!", "orders": 1, "gross": 38, "pax": 2}]}, {"ym": "2025-10", "month_total_orders": 2, "top3": [{"title": "Vices of the Old Turku Walking Tour", "orders": 2, "gross": 60, "pax": 4}]}, {"ym": "2025-11", "month_total_orders": 3, "top3": [{"title": "Food Walk 2026", "orders": 2, "gross": 216, "pax": 4}, {"title": "Turku: Cake and bubbles cake buffet at Turku Market Hall MBakery", "orders": 1, "gross": 44, "pax": 2}]}, {"ym": "2025-12", "month_total_orders": 3, "top3": [{"title": "Food Walk 2026", "orders": 3, "gross": 486, "pax": 9}]}, {"ym": "2026-01", "month_total_orders": 1, "top3": [{"title": "Food Walk 2026", "orders": 1, "gross": 54, "pax": 1}]}, {"ym": "2026-03", "month_total_orders": 2, "top3": [{"title": "Food Walk 2026", "orders": 1, "gross": 108, "pax": 2}, {"title": "Last trip on Airisto - True Crime Walking Tour", "orders": 1, "gross": 42, "pax": 2}]}, {"ym": "2026-04", "month_total_orders": 1, "top3": [{"title": "Dark stories of Turku - Private Group Walking Tour", "orders": 1, "gross": 120, "pax": 6}]}, {"ym": "2026-05", "month_total_orders": 3, "top3": [{"title": "The Archipelago Trail", "orders": 1, "gross": 238, "pax": 2}, {"title": "Turku–Naantali–Turku Archipelago Cruise, M/S Princess Caroline", "orders": 1, "gross": 165, "pax": 5}, {"title": "Turku: Day trips to Seili", "orders": 1, "gross": 94, "pax": 2}]}], "vendors": [{"title": "Elämys Group", "orders": 194, "gross": 15414, "pax": 447, "white_label": true}, {"title": "Paimion parantola – Paimio Sanatorium", "orders": 67, "gross": 3445, "pax": 149, "white_label": false}, {"title": "Höyrylaiva s/s Ukkopekka", "orders": 55, "gross": 6006, "pax": 126, "white_label": false}, {"title": "Magni Mundi Oy", "orders": 50, "gross": 1959, "pax": 118, "white_label": false}, {"title": "CT Ravintolat", "orders": 28, "gross": 3986, "pax": 74, "white_label": false}, {"title": "Muumimaailma Oy / Moominworld", "orders": 18, "gross": 363, "pax": 20, "white_label": false}, {"title": "Naawa - Nature Awakening", "orders": 4, "gross": 650, "pax": 8, "white_label": false}, {"title": "Aavameri", "orders": 3, "gross": 400, "pax": 4, "white_label": false}, {"title": "Turun Saaristomatkat", "orders": 2, "gross": 458, "pax": 4, "white_label": false}, {"title": "Villa Wolax oy", "orders": 1, "gross": 50, "pax": 2, "white_label": false}, {"title": "Rosala Vikingcentrum", "orders": 1, "gross": 24, "pax": 4, "white_label": false}], "countries": [{"code": "FI", "orders": 384, "gross": 28934, "pax": 846}, {"code": "US", "orders": 6, "gross": 508, "pax": 37}, {"code": "GB", "orders": 5, "gross": 192, "pax": 9}, {"code": "FR", "orders": 5, "gross": 551, "pax": 12}, {"code": "UNKNOWN", "orders": 4, "gross": 321, "pax": 12}, {"code": "DE", "orders": 3, "gross": 146, "pax": 6}, {"code": "IT", "orders": 3, "gross": 354, "pax": 6}, {"code": "SE", "orders": 3, "gross": 288, "pax": 6}, {"code": "JP", "orders": 2, "gross": 435, "pax": 6}, {"code": "AU", "orders": 2, "gross": 114, "pax": 2}, {"code": "LT", "orders": 1, "gross": 92, "pax": 2}, {"code": "ES", "orders": 1, "gross": 96, "pax": 3}, {"code": "CA", "orders": 1, "gross": 355, "pax": 1}, {"code": "AT", "orders": 1, "gross": 96, "pax": 4}, {"code": "NO", "orders": 1, "gross": 81, "pax": 1}, {"code": "LV", "orders": 1, "gross": 192, "pax": 3}], "yoy_jan_may": [{"month": "01", "y25_orders": 4, "y25_gross": 353, "y26_orders": 1, "y26_gross": 54}, {"month": "02", "y25_orders": 1, "y25_gross": 30, "y26_orders": 0, "y26_gross": 0}, {"month": "03", "y25_orders": 3, "y25_gross": 213, "y26_orders": 2, "y26_gross": 150}, {"month": "04", "y25_orders": 2, "y25_gross": 93, "y26_orders": 1, "y26_gross": 120}, {"month": "05", "y25_orders": 9, "y25_gross": 2364, "y26_orders": 3, "y26_gross": 497}], "summer_compare": [{"year": "2024", "orders": 128, "gross": 10573, "pax": 278}, {"year": "2025", "orders": 173, "gross": 12346, "pax": 369}, {"year": "2026", "orders": 2, "gross": 285, "pax": 11}], "vendor_mix_shift": [{"title": "Elämys Group (white-label)", "n24": 43, "p24": 21.7, "n25": 148, "p25": 67.9}, {"title": "Paimion parantola – Paimio Sanatorium", "n24": 55, "p24": 27.8, "n25": 12, "p25": 5.5}, {"title": "Höyrylaiva s/s Ukkopekka", "n24": 55, "p24": 27.8, "n25": 0, "p25": 0.0}, {"title": "Magni Mundi Oy", "n24": 25, "p24": 12.6, "n25": 24, "p25": 11.0}, {"title": "CT Ravintolat", "n24": 9, "p24": 4.5, "n25": 17, "p25": 7.8}, {"title": "Muumimaailma Oy / Moominworld", "n24": 4, "p24": 2.0, "n25": 14, "p25": 6.4}, {"title": "Naawa - Nature Awakening", "n24": 4, "p24": 2.0, "n25": 0, "p25": 0.0}, {"title": "Aavameri", "n24": 2, "p24": 1.0, "n25": 1, "p25": 0.5}], "saaristo_split": {"saaristo": {"total": 139, "fi": 129, "intl": 9}, "other": {"total": 284, "fi": 255, "intl": 26}}, "arch_facts": {"resold_count": 423, "total_count": 423, "resold_pct": 100, "commission_ratio_pct": 12.2, "total_commission": 4011}};
 // Helpers
 const fmtInt = n => n.toLocaleString('fi-FI');
 const fmtEur = n => Math.round(n).toLocaleString('fi-FI');
@@ -534,10 +616,11 @@ new Chart(ctx, {
   }
 });
 
-// Top products
+// All products
+document.getElementById('products-count').textContent = fmtInt(DATA.products_all.length);
 const prodBody = document.getElementById('products-tbody');
-const prodMax = Math.max(...DATA.products.map(p => p.orders));
-DATA.products.forEach((p, i) => {
+const prodMax = Math.max(...DATA.products_all.map(p => p.orders));
+DATA.products_all.forEach((p, i) => {
   const pct = (p.orders / prodMax * 100).toFixed(0);
   const shareOfTotal = (p.orders / t.orders * 100).toFixed(1);
   prodBody.insertAdjacentHTML('beforeend', `
@@ -551,16 +634,40 @@ DATA.products.forEach((p, i) => {
   `);
 });
 
+// Monthly top product
+const mtBody = document.getElementById('monthly-top-tbody');
+DATA.monthly_top.forEach(m => {
+  const t1 = m.top3[0];
+  const share = (t1.orders / m.month_total_orders * 100).toFixed(0);
+  const otherTips = m.top3.slice(1).map((p, idx) =>
+    `${idx+2}. ${escapeHtml(p.title)} — ${p.orders} varausta`
+  ).join('\n');
+  const tip = otherTips ? `Muut top-3:\n${otherTips}` : '';
+  mtBody.insertAdjacentHTML('beforeend', `
+    <tr>
+      <td style="font-variant-numeric:tabular-nums;color:var(--muted);">${m.ym}</td>
+      <td class="product-title" title="${escapeAttr(tip)}">${escapeHtml(t1.title)}<div style="color:var(--muted);font-size:11px;font-weight:400;">${fmtInt(t1.pax)} PAX</div></td>
+      <td class="num">${fmtInt(t1.orders)} <span style="color:var(--muted);font-weight:400;font-size:11px;">/ ${fmtInt(m.month_total_orders)}</span></td>
+      <td class="num">${fmtEur(t1.gross)}</td>
+      <td><div class="bar-track"><div class="bar-fill" style="width:${share}%"></div></div><div style="font-size:10px;color:var(--muted);margin-top:2px;text-align:right;">${share}%</div></td>
+    </tr>
+  `);
+});
+
 // Vendors
 const vBody = document.getElementById('vendors-tbody');
 const vMax = Math.max(...DATA.vendors.map(v => v.orders));
 DATA.vendors.forEach((v, i) => {
   const pct = (v.orders / vMax * 100).toFixed(0);
   const shareOfTotal = (v.orders / t.orders * 100).toFixed(1);
+  const badge = v.white_label ? ` <span class="pill warm" style="font-size:9px;padding:1px 6px;vertical-align:1px;">white-label</span>` : '';
+  const sublabel = v.white_label
+    ? `<div style="color:var(--muted);font-size:11px;font-weight:400;">${fmtInt(v.pax)} PAX · Elämysin oma vehikkeli partneriyrityksille</div>`
+    : `<div style="color:var(--muted);font-size:11px;font-weight:400;">${fmtInt(v.pax)} PAX</div>`;
   vBody.insertAdjacentHTML('beforeend', `
     <tr>
       <td class="rank">${i+1}</td>
-      <td class="vendor-title">${escapeHtml(v.title)}<div style="color:var(--muted);font-size:11px;font-weight:400;">${fmtInt(v.pax)} PAX</div></td>
+      <td class="vendor-title">${escapeHtml(v.title)}${badge}${sublabel}</td>
       <td class="num">${fmtInt(v.orders)}</td>
       <td class="num">${fmtEur(v.gross)}</td>
       <td><div class="bar-track"><div class="bar-fill warm" style="width:${pct}%"></div></div><div style="font-size:10px;color:var(--muted);margin-top:2px;text-align:right;">${shareOfTotal}%</div></td>
@@ -628,6 +735,81 @@ Object.entries(DATA.status_distribution).forEach(([k, v]) => {
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+function escapeAttr(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])).replace(/\n/g, '&#10;');
+}
+
+// YoY Jan-May
+const yoyBody = document.getElementById('yoy-tbody');
+let totY25 = 0, totY26 = 0;
+const monthNames = {'01':'Tam','02':'Hel','03':'Maa','04':'Huh','05':'Tou'};
+DATA.yoy_jan_may.forEach(r => {
+  totY25 += r.y25_orders;
+  totY26 += r.y26_orders;
+  const delta = r.y26_orders - r.y25_orders;
+  const cls = delta < 0 ? 'color:#C45A3F' : delta > 0 ? 'color:#4A9D6B' : 'color:var(--muted)';
+  yoyBody.insertAdjacentHTML('beforeend', `
+    <tr>
+      <td>${monthNames[r.month]}</td>
+      <td class="num">${fmtInt(r.y25_orders)} <span style="color:var(--muted);font-size:11px;">(${fmtEur(r.y25_gross)}€)</span></td>
+      <td class="num">${fmtInt(r.y26_orders)} <span style="color:var(--muted);font-size:11px;">(${fmtEur(r.y26_gross)}€)</span></td>
+      <td class="num" style="${cls};font-weight:600;">${delta >= 0 ? '+' : ''}${delta}</td>
+    </tr>
+  `);
+});
+const deltaTot = totY26 - totY25;
+const pctTot = totY25 ? Math.round((totY26/totY25 - 1) * 100) : 0;
+document.getElementById('yoy-total').innerHTML = `${totY25} → ${totY26} varausta · <span style="color:${deltaTot<0?'#C45A3F':deltaTot>0?'#4A9D6B':'inherit'};font-weight:600;">${deltaTot>=0?'+':''}${deltaTot} (${pctTot>=0?'+':''}${pctTot}%)</span>`;
+
+// Summer compare
+const summerBody = document.getElementById('summer-tbody');
+DATA.summer_compare.forEach(s => {
+  const isCurrent = s.year === '2026';
+  summerBody.insertAdjacentHTML('beforeend', `
+    <tr>
+      <td>${s.year}${isCurrent ? ' <span style="color:var(--muted);font-size:11px;">(välitilanne 21.5.)</span>' : ''}</td>
+      <td class="num">${fmtInt(s.orders)}</td>
+      <td class="num">${fmtEur(s.gross)}</td>
+      <td class="num">${fmtInt(s.pax)}</td>
+    </tr>
+  `);
+});
+
+// Vendor-mix shift 2024 -> 2025
+const vsBody = document.getElementById('vendor-shift-tbody');
+DATA.vendor_mix_shift.forEach(v => {
+  const d = v.p25 - v.p24;
+  const arrow = d > 0.5 ? '↑' : d < -0.5 ? '↓' : '·';
+  const cls = d > 0.5 ? 'color:#4A9D6B' : d < -0.5 ? 'color:#C45A3F' : 'color:var(--muted)';
+  vsBody.insertAdjacentHTML('beforeend', `
+    <tr>
+      <td class="vendor-title">${escapeHtml(v.title)}</td>
+      <td class="num">${v.p24.toFixed(1)}% <span style="color:var(--muted);font-size:11px;">(${v.n24})</span></td>
+      <td class="num">${v.p25.toFixed(1)}% <span style="color:var(--muted);font-size:11px;">(${v.n25})</span></td>
+      <td class="num" style="${cls};font-weight:600;">${arrow} ${d >= 0 ? '+' : ''}${d.toFixed(1)}</td>
+    </tr>
+  `);
+});
+
+// Saaristo vs muut
+const s = DATA.saaristo_split.saaristo;
+const o = DATA.saaristo_split.other;
+const sFiPct = s.total ? (s.fi/s.total*100).toFixed(0) : '0';
+const sIntPct = s.total ? (s.intl/s.total*100).toFixed(0) : '0';
+const oFiPct = o.total ? (o.fi/o.total*100).toFixed(0) : '0';
+const oIntPct = o.total ? (o.intl/o.total*100).toFixed(0) : '0';
+document.getElementById('saaristo-comparison').innerHTML =
+  `Saaristo/Archipelago-tuotteet (${s.total} var.) — FI ${sFiPct}% / kv ${sIntPct}% &nbsp;·&nbsp; ` +
+  `Muut tuotteet (${o.total} var.) — FI ${oFiPct}% / kv ${oIntPct}%. ` +
+  `Saaristo-osio ei tuota merkittävästi enemmän kv-myyntiä kuin muu kanava.`;
+
+// Channel architecture facts
+const af = DATA.arch_facts;
+document.getElementById('resold-pct').textContent = af.resold_pct;
+document.getElementById('resold-count').textContent = fmtInt(af.resold_count);
+document.getElementById('resold-total').textContent = fmtInt(af.total_count);
+document.getElementById('comm-pct').textContent = af.commission_ratio_pct.toFixed(1);
+document.getElementById('comm-eur').textContent = fmtEur(af.total_commission);
 </script>
 </body>
 </html>
