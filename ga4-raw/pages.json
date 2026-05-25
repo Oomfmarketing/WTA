@@ -1,0 +1,35 @@
+{
+  "source": "GA4 Reports → Aktivoituminen → Sivut ja näkymät",
+  "period_current": "2026-01-01..2026-05-25",
+  "period_comparison": "2025-01-01..2025-05-25",
+  "captured_at": "2026-05-25T09:35+03:00",
+  "totals": {
+    "page_views": {"current": 8807, "previous": 15913, "yoy_pct": -44.66},
+    "active_users": {"current": 4115, "previous": 5453, "yoy_pct": -24.54},
+    "views_per_user": {"current": 2.14, "previous": 2.92, "yoy_pct": -26.66},
+    "avg_engagement_time_s": {"current": 64, "previous": 89, "yoy_pct": -27.57},
+    "events": {"current": 33252, "previous": 55436, "yoy_pct": -40.02},
+    "key_events": {"current": 0, "previous": 0},
+    "total_revenue_eur": {"current": 0, "previous": 0}
+  },
+  "total_pages_seen": 298,
+  "top_pages": [
+    {"rank":1,"path":"/","views_2026":1321,"views_2025":2336,"share_2026_pct":15.00,"yoy_pct":-43.45},
+    {"rank":2,"path":"/retket-ja-aktiviteetit-vanha/","views_2026":1002,"views_2025":722,"share_2026_pct":11.38,"yoy_pct":38.78},
+    {"rank":3,"path":"/aktiviteetti/","views_2026":683,"views_2025":3060,"share_2026_pct":7.76,"yoy_pct":-77.68},
+    {"rank":4,"path":"/matkapaketit/the-addams-family/","views_2026":444,"views_2025":0,"share_2026_pct":5.04,"yoy_pct":null,"note":"uusi sivu 2026"},
+    {"rank":5,"path":"/en/activity/","views_2026":273,"views_2025":90,"share_2026_pct":3.10,"yoy_pct":203.33},
+    {"rank":6,"path":"/kalenterihaku/","views_2026":271,"views_2025":367,"share_2026_pct":3.08,"yoy_pct":-26.16},
+    {"rank":7,"path":"/en/","views_2026":269,"views_2025":109,"share_2026_pct":3.05,"yoy_pct":146.79},
+    {"rank":8,"path":"/aktiviteetti/turku-paivaretki-seiliin/","views_2026":231,"views_2025":49,"share_2026_pct":2.62,"yoy_pct":371.43},
+    {"rank":9,"path":"/en/day-tours-activities/","views_2026":211,"views_2025":52,"share_2026_pct":2.40,"yoy_pct":305.77},
+    {"rank":10,"path":"/matkapaketit/","views_2026":198,"views_2025":316,"share_2026_pct":2.25,"yoy_pct":-37.34}
+  ],
+  "key_observations": [
+    "Englanninkieliset sivut kasvavat voimakkaasti: /en/ +147%, /en/activity/ +203%, /en/day-tours-activities/ +306%",
+    "Vanha /aktiviteetti/-juurisivu romahtanut -78% — liikenne valunut /retket-ja-aktiviteetit-vanha/ (+39%) ja yksittäisiin retkisivuihin",
+    "/matkapaketit/the-addams-family/ on uusi 2026 lanseeraus, jo top-4 (444 katselua)",
+    "Yksittäinen retkisivu /aktiviteetti/turku-paivaretki-seiliin/ +371% YoY",
+    "Tärkeät tapahtumat (key events) = 0 — GA4-puolelle ei ole konfiguroitu konversioita, joten booking-flow:n konversiota ei voida raportoida tässä snapshotissa"
+  ]
+}

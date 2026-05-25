@@ -1,0 +1,16 @@
+# Credentials — never commit
+*.credentials
+*credentials*.json
+.env
+.bokun-credentials
+.ga4-credentials.json
+service-account-*.json
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor temp files
+*.swp
+*.swo
+*~

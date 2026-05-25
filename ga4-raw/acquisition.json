@@ -1,0 +1,33 @@
+{
+  "source": "GA4 Reports → Hankinta → Yleiskatsaus",
+  "period_current": "2026-01-01..2026-05-25",
+  "period_comparison": "2025-01-01..2025-05-25",
+  "captured_at": "2026-05-25T09:25+03:00",
+  "new_users_by_first_user_source_grouping": [
+    {"channel":"Organic Search","new_users":2400,"yoy_pct":23.1},
+    {"channel":"Referral","new_users":895,"yoy_pct":-34.9},
+    {"channel":"Direct","new_users":228,"yoy_pct":-54.2},
+    {"channel":"Unassigned","new_users":26,"yoy_pct":333.3},
+    {"channel":"Organic Social","new_users":11,"yoy_pct":-94.2},
+    {"channel":"Paid Search","new_users":7,"yoy_pct":-98.0},
+    {"channel":"Cross-network","new_users":0,"yoy_pct":-100.0}
+  ],
+  "sessions_by_session_source_grouping": [
+    {"channel":"Organic Search","sessions":3000,"yoy_pct":15.0},
+    {"channel":"Referral","sessions":1500,"yoy_pct":-36.3},
+    {"channel":"Direct","sessions":419,"yoy_pct":-56.5},
+    {"channel":"Unassigned","sessions":135,"yoy_pct":-35.4},
+    {"channel":"Organic Social","sessions":11,"yoy_pct":-95.0},
+    {"channel":"Paid Search","sessions":7,"yoy_pct":-98.3},
+    {"channel":"Cross-network","sessions":0,"yoy_pct":-100.0}
+  ],
+  "top_session_sources": [
+    {"rank":1,"source":"google","sessions":2900,"yoy_pct":-10.3},
+    {"rank":2,"source":"visitturku.fi","sessions":1100,"yoy_pct":-37.6},
+    {"rank":3,"source":"tkteatteri.fi","sessions":270,"yoy_pct":17.4},
+    {"rank":4,"source":"bing","sessions":117,"yoy_pct":50.0},
+    {"rank":5,"source":"statics.teams.cdn.office.net","sessions":63,"yoy_pct":-44.2},
+    {"rank":6,"source":"lm.facebook.com","sessions":1,"yoy_pct":-99.1},
+    {"rank":7,"source":"en.visitturku.fi","sessions":1,"yoy_pct":-99.0}
+  ]
+}

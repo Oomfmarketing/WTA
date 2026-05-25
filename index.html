@@ -507,19 +507,122 @@
       </div>
     </div>
   </section>
+
+  <!-- GA4 — Bookturku.fi liikenne -->
+  <section class="card">
+    <h2>Bookturku.fi liikenne · GA4 (YTD 2026 vs YTD 2025)</h2>
+    <div class="notes" style="margin: -4px 0 16px;">
+      Eri datalähde kuin yllä: tämä on <strong>bookturku.fi-sivuston liikenne</strong> Google Analytics 4:stä (Property 419601354), jaksolta 1.1.–25.5.2026 vs. sama jakso 2025. Bok&uacute;n-luvut yllä mittaavat <em>varauksia</em>, GA4 mittaa <em>sivustokäyntejä</em> — eivät ole suoraan vertailukelpoisia.
+    </div>
+
+    <div class="grid-kpi" style="grid-template-columns: repeat(4, 1fr); display:grid; gap:12px; margin-bottom:18px;">
+      <div class="kpi" style="background:var(--saaristo-tint);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:600;">Aktiiviset käyttäjät</div>
+        <div style="font-size:22px;font-weight:700;color:var(--saaristo-deep);margin-top:4px;" id="ga4-users">—</div>
+        <div style="font-size:12px;margin-top:2px;" id="ga4-users-yoy">—</div>
+      </div>
+      <div class="kpi" style="background:var(--saaristo-tint);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:600;">Uudet käyttäjät</div>
+        <div style="font-size:22px;font-weight:700;color:var(--saaristo-deep);margin-top:4px;" id="ga4-new">—</div>
+        <div style="font-size:12px;margin-top:2px;" id="ga4-new-yoy">—</div>
+      </div>
+      <div class="kpi" style="background:var(--saaristo-tint);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:600;">Aktivoivat istunnot</div>
+        <div style="font-size:22px;font-weight:700;color:var(--saaristo-deep);margin-top:4px;" id="ga4-eng">—</div>
+        <div style="font-size:12px;margin-top:2px;" id="ga4-eng-yoy">—</div>
+      </div>
+      <div class="kpi" style="background:var(--saaristo-tint);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:600;">Sivunkatselut</div>
+        <div style="font-size:22px;font-weight:700;color:var(--saaristo-deep);margin-top:4px;" id="ga4-views">—</div>
+        <div style="font-size:12px;margin-top:2px;" id="ga4-views-yoy">—</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div>
+        <h3 style="margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">Kanavat · uudet käyttäjät (Default Channel Grouping)</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Kanava</th>
+              <th style="text-align:right;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">2026 YTD</th>
+              <th style="text-align:right;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">YoY</th>
+            </tr>
+          </thead>
+          <tbody id="ga4-channels-tbody"></tbody>
+        </table>
+      </div>
+      <div>
+        <h3 style="margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">Top istuntolähteet (Session Source)</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Lähde</th>
+              <th style="text-align:right;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Istunnot</th>
+              <th style="text-align:right;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">YoY</th>
+            </tr>
+          </thead>
+          <tbody id="ga4-sources-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;">
+      <div>
+        <h3 style="margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">Top maat (käyttäjät, <span id="ga4-countries-total">67</span> maata yht.)</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Maa</th>
+              <th style="text-align:right;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">2026 YTD</th>
+              <th style="text-align:right;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Osuus</th>
+              <th style="text-align:right;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">YoY</th>
+            </tr>
+          </thead>
+          <tbody id="ga4-countries-tbody"></tbody>
+        </table>
+      </div>
+      <div>
+        <h3 style="margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">Top sivut (katselut, <span id="ga4-pages-total">298</span> sivua yht.)</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Polku</th>
+              <th style="text-align:right;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Katselut</th>
+              <th style="text-align:right;padding:6px 8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">YoY</th>
+            </tr>
+          </thead>
+          <tbody id="ga4-pages-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="notes" style="margin-top:18px;font-size:12px;background:var(--sand-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+      <strong style="color:var(--saaristo-deep);">Havaintoja YTD 2026:</strong>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.6;">
+        <li><strong>Englanninkielinen liikenne kasvaa voimakkaasti:</strong> /en/ +147 %, /en/activity/ +203 %, /en/day-tours-activities/ +306 %. Kansainvälinen näkyvyys orgaanisesti vahvistunut.</li>
+        <li><strong>Suomalainen päävirta hidastuu:</strong> kokonaisaktiivisuus −24,5 %; etusivun katselut −43 % ja vanha <code>/aktiviteetti/</code>-juurisivu −78 %.</li>
+        <li><strong>Sisältöuudistus näkyy:</strong> <code>/retket-ja-aktiviteetit-vanha/</code> +39 % ja yksittäiset retkisivut nousseet (Seili-päiväretki +371 % YoY).</li>
+        <li><strong>Uudet matkapaketit toimivat:</strong> <code>/matkapaketit/the-addams-family/</code> top-4 (444 katselua), ei dataa 2025 — uusi 2026 lanseeraus.</li>
+        <li><strong>Konversiomittaus puuttuu:</strong> GA4:n "tärkeät tapahtumat" = 0. Booking-flow:n klikkausta Bok&uacute;n-varaussivulle ei seurata — suositus määritellä key event sekä GA4:n että GTM:n puolelle, niin tämä paneeli näyttää myös klikkikonversion.</li>
+      </ul>
+    </div>
+  </section>
+
   <!-- Notes -->
   <section class="card">
     <h2>Mistä luvut tulevat &amp; mitä ne tarkoittavat</h2>
     <div class="notes">
-      <p style="margin:0 0 10px;"><strong>Lähde.</strong> Kaikki luvut on haettu suoraan Bokún REST -rajapinnasta <code>POST /booking.json/product-booking-search</code> ja suodatettu <strong>Book Turku</strong> -kanavalle (Bokún channel "Book Turku", channelId 270809). Mukaan otetaan tilat <code>CONFIRMED</code> ja <code>ARRIVED</code>; <code>CANCELLED</code> ja <code>NO_SHOW</code> näkyvät erikseen statusjakaumassa eivätkä KPI-summissa.</p>
+      <p style="margin:0 0 10px;"><strong>Lähde 1 — Bokún (varaukset).</strong> Pääosa luvuista on haettu suoraan Bokún REST -rajapinnasta <code>POST /booking.json/product-booking-search</code> ja suodatettu <strong>Book Turku</strong> -kanavalle (Bokún channel "Book Turku", channelId 270809). Mukaan otetaan tilat <code>CONFIRMED</code> ja <code>ARRIVED</code>; <code>CANCELLED</code> ja <code>NO_SHOW</code> näkyvät erikseen statusjakaumassa eivätkä KPI-summissa.</p>
+      <p style="margin:0 0 10px;"><strong>Lähde 2 — GA4 (sivuston liikenne).</strong> Bookturku.fi-osio käyttää Google Analytics 4 -dataa (Property 419601354, jaksot 1.1.–25.5.2026 vs 2025). Luvut on luettu GA4 Reports -käyttöliittymästä Acquisition Overview, Demografiset tiedot: Maa, ja Sivut &amp; näkymät -raporteista. Tärkeät tapahtumat (key events) = 0, koska booking-flow:n konversiota ei ole vielä määritelty GA4:ssa.</p>
       <p style="margin:0 0 10px;"><strong>Bruttomyynti (BM) ≠ FAS-liikevaihto.</strong> BM on kanavan kautta kulkenut bruttobookingarvo. ETD/B&amp;E:n FAS-LV koostuu omasta myynnistä + komissioista (LV/BM ≈ 34%). Tätä lukua ei pidä sekoittaa hallinto­raportointiin ilman muunnosta.</p>
-      <p style="margin:0 0 10px;"><strong>Jakso &amp; tuoreus.</strong> Data kattaa Bokún-haun palauttamat varaukset jaksolla, joka näkyy ylhäällä. <strong>Tämä on manuaalinen snapshot</strong> (rakennettu 2026-05-22 datasta 2026-05-21 saakka). Suunnitelmissa on automaattisesti 4 h välein päivittyvä versio GitHub Actionsilla — kun se on käytössä, tämä lukutila vaihtuu.</p>
+      <p style="margin:0 0 10px;"><strong>Jakso &amp; tuoreus.</strong> Bokún-data kattaa varaukset jaksolla, joka näkyy ylhäällä. GA4-data on YTD-vertailu 1.1.–25.5. (2026 vs 2025). <strong>Tämä on manuaalinen snapshot</strong> (Bokún 2026-05-21 saakka, GA4 päivitetty 2026-05-25). Suunnitelmissa on automaattisesti 4 h välein päivittyvä versio GitHub Actionsilla — service account <code>bookturku-ga4-reader@absolute-nexus-409409.iam.gserviceaccount.com</code> on jo luotu GA4 Data API:n käyttöä varten.</p>
       <p style="margin:0;"><strong>Tietosuoja.</strong> Ei henkilötason kenttiä — kaikki KPI:t ovat aggregaatteja. Toimittaja- ja tuotetason luvut on jätetty näkyviin tämän jakoversion osalta (CEO:n päätös 2026-05-22).</p>
     </div>
   </section>
 
   <footer class="page">
-    Book Turku Trends · Elämys Group · Bokún-data · Snapshot rakennettu 2026-05-22
+    Book Turku Trends · Elämys Group · Bokún-data 2026-05-21 + GA4 YTD 2026-05-25 · Snapshot päivitetty 2026-05-25
   </footer>
 
 </div>
@@ -810,6 +913,132 @@ document.getElementById('resold-count').textContent = fmtInt(af.resold_count);
 document.getElementById('resold-total').textContent = fmtInt(af.total_count);
 document.getElementById('comm-pct').textContent = af.commission_ratio_pct.toFixed(1);
 document.getElementById('comm-eur').textContent = fmtEur(af.total_commission);
+
+// ===== GA4 (bookturku.fi liikenne, YTD 2026 vs YTD 2025) =====
+const GA4 = {
+  period_current: "2026-01-01..2026-05-25",
+  period_comparison: "2025-01-01..2025-05-25",
+  totals: {
+    active_users: {current: 4115, previous: 5453, yoy: -24.5},
+    new_users: {current: 3595, previous: 4680, yoy: -23.2},
+    engaged_sessions: {current: 3755, previous: 5150, yoy: -27.1},
+    page_views: {current: 8807, previous: 15913, yoy: -44.7}
+  },
+  channels_new_users: [
+    {name:"Organic Search", users:2400, yoy:23.1},
+    {name:"Referral", users:895, yoy:-34.9},
+    {name:"Direct", users:228, yoy:-54.2},
+    {name:"Unassigned", users:26, yoy:333.3},
+    {name:"Organic Social", users:11, yoy:-94.2},
+    {name:"Paid Search", users:7, yoy:-98.0},
+    {name:"Cross-network", users:0, yoy:-100.0}
+  ],
+  top_sources: [
+    {name:"google", sessions:2900, yoy:-10.3},
+    {name:"visitturku.fi", sessions:1100, yoy:-37.6},
+    {name:"tkteatteri.fi", sessions:270, yoy:17.4},
+    {name:"bing", sessions:117, yoy:50.0},
+    {name:"statics.teams.cdn.office.net", sessions:63, yoy:-44.2},
+    {name:"lm.facebook.com", sessions:1, yoy:-99.1},
+    {name:"en.visitturku.fi", sessions:1, yoy:-99.0}
+  ],
+  top_countries: [
+    {name:"Finland", users:3744, share:90.98, yoy:-26.3},
+    {name:"Sweden", users:49, share:1.19, yoy:11.4},
+    {name:"Germany", users:29, share:0.70, yoy:-19.4},
+    {name:"United States", users:27, share:0.66, yoy:-20.6},
+    {name:"Lithuania", users:25, share:0.61, yoy:1150.0},
+    {name:"United Kingdom", users:19, share:0.46, yoy:-50.0},
+    {name:"Poland", users:18, share:0.44, yoy:-5.3},
+    {name:"Netherlands", users:16, share:0.39, yoy:23.1},
+    {name:"France", users:14, share:0.34, yoy:-30.0},
+    {name:"Australia", users:13, share:0.32, yoy:18.2}
+  ],
+  top_pages: [
+    {path:"/", views:1321, yoy:-43.5},
+    {path:"/retket-ja-aktiviteetit-vanha/", views:1002, yoy:38.8},
+    {path:"/aktiviteetti/", views:683, yoy:-77.7},
+    {path:"/matkapaketit/the-addams-family/", views:444, yoy:null, note:"uusi 2026"},
+    {path:"/en/activity/", views:273, yoy:203.3},
+    {path:"/kalenterihaku/", views:271, yoy:-26.2},
+    {path:"/en/", views:269, yoy:146.8},
+    {path:"/aktiviteetti/turku-paivaretki-seiliin/", views:231, yoy:371.4},
+    {path:"/en/day-tours-activities/", views:211, yoy:305.8},
+    {path:"/matkapaketit/", views:198, yoy:-37.3}
+  ]
+};
+
+function ga4Pct(v) {
+  if (v === null || v === undefined) return '<span style="color:var(--muted);">uusi</span>';
+  const color = v > 0 ? '#4A9D6B' : v < 0 ? '#C45A3F' : 'var(--muted)';
+  const arrow = v > 0 ? '↑' : v < 0 ? '↓' : '·';
+  const sign = v > 0 ? '+' : '';
+  return `<span style="color:${color};font-weight:600;">${arrow} ${sign}${v.toFixed(1)} %</span>`;
+}
+function ga4Compact(n) {
+  if (n >= 1000) return (n/1000).toLocaleString('fi-FI', {minimumFractionDigits:1, maximumFractionDigits:1}).replace('.', ',') + ' t.';
+  return n.toLocaleString('fi-FI');
+}
+
+// KPIs
+document.getElementById('ga4-users').textContent = ga4Compact(GA4.totals.active_users.current);
+document.getElementById('ga4-users-yoy').innerHTML = `vs ${ga4Compact(GA4.totals.active_users.previous)} · ${ga4Pct(GA4.totals.active_users.yoy)}`;
+document.getElementById('ga4-new').textContent = ga4Compact(GA4.totals.new_users.current);
+document.getElementById('ga4-new-yoy').innerHTML = `vs ${ga4Compact(GA4.totals.new_users.previous)} · ${ga4Pct(GA4.totals.new_users.yoy)}`;
+document.getElementById('ga4-eng').textContent = ga4Compact(GA4.totals.engaged_sessions.current);
+document.getElementById('ga4-eng-yoy').innerHTML = `vs ${ga4Compact(GA4.totals.engaged_sessions.previous)} · ${ga4Pct(GA4.totals.engaged_sessions.yoy)}`;
+document.getElementById('ga4-views').textContent = ga4Compact(GA4.totals.page_views.current);
+document.getElementById('ga4-views-yoy').innerHTML = `vs ${ga4Compact(GA4.totals.page_views.previous)} · ${ga4Pct(GA4.totals.page_views.yoy)}`;
+
+// Channels
+const chBody = document.getElementById('ga4-channels-tbody');
+GA4.channels_new_users.forEach(c => {
+  chBody.insertAdjacentHTML('beforeend', `
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 8px;">${escapeHtml(c.name)}</td>
+      <td style="padding:6px 8px;text-align:right;font-variant-numeric:tabular-nums;">${ga4Compact(c.users)}</td>
+      <td style="padding:6px 8px;text-align:right;">${ga4Pct(c.yoy)}</td>
+    </tr>
+  `);
+});
+
+// Sources
+const srcBody = document.getElementById('ga4-sources-tbody');
+GA4.top_sources.forEach(s => {
+  srcBody.insertAdjacentHTML('beforeend', `
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 8px;font-family:monospace;font-size:12px;">${escapeHtml(s.name)}</td>
+      <td style="padding:6px 8px;text-align:right;font-variant-numeric:tabular-nums;">${ga4Compact(s.sessions)}</td>
+      <td style="padding:6px 8px;text-align:right;">${ga4Pct(s.yoy)}</td>
+    </tr>
+  `);
+});
+
+// Countries
+const ctyBody = document.getElementById('ga4-countries-tbody');
+GA4.top_countries.forEach(c => {
+  ctyBody.insertAdjacentHTML('beforeend', `
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 8px;">${escapeHtml(c.name)}</td>
+      <td style="padding:6px 8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtInt(c.users)}</td>
+      <td style="padding:6px 8px;text-align:right;color:var(--muted);font-size:12px;">${c.share.toFixed(1)} %</td>
+      <td style="padding:6px 8px;text-align:right;">${ga4Pct(c.yoy)}</td>
+    </tr>
+  `);
+});
+
+// Pages
+const pgBody = document.getElementById('ga4-pages-tbody');
+GA4.top_pages.forEach(p => {
+  const noteHtml = p.note ? ` <span style="color:var(--muted);font-size:11px;">(${escapeHtml(p.note)})</span>` : '';
+  pgBody.insertAdjacentHTML('beforeend', `
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:6px 8px;font-family:monospace;font-size:12px;word-break:break-all;">${escapeHtml(p.path)}${noteHtml}</td>
+      <td style="padding:6px 8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtInt(p.views)}</td>
+      <td style="padding:6px 8px;text-align:right;">${ga4Pct(p.yoy)}</td>
+    </tr>
+  `);
+});
 </script>
 </body>
 </html>
