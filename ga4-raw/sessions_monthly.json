@@ -1,0 +1,112 @@
+{
+  "method": "Pixel-derived from GA4 'Liikenteen hankinta' SVG Yhteensä line, calibrated against Total = 155,436 sessions",
+  "source": "GA4 property 419601354, dimension = Session source channel grouping, metric = Sessions, period 2024-04-01 → 2026-05-24, monthly granularity",
+  "captured_at": "2026-05-25T15:30+03:00",
+  "calibration_scale_sessions_per_pixel": 158.93,
+  "monthly_sessions": [
+    {
+      "ym": "2024-04",
+      "sessions": 7200
+    },
+    {
+      "ym": "2024-05",
+      "sessions": 5100
+    },
+    {
+      "ym": "2024-06",
+      "sessions": 6500
+    },
+    {
+      "ym": "2024-07",
+      "sessions": 22900
+    },
+    {
+      "ym": "2024-08",
+      "sessions": 18900
+    },
+    {
+      "ym": "2024-09",
+      "sessions": 5700
+    },
+    {
+      "ym": "2024-10",
+      "sessions": 6200
+    },
+    {
+      "ym": "2024-11",
+      "sessions": 4900
+    },
+    {
+      "ym": "2024-12",
+      "sessions": 3000
+    },
+    {
+      "ym": "2025-01",
+      "sessions": 1900
+    },
+    {
+      "ym": "2025-02",
+      "sessions": 1300
+    },
+    {
+      "ym": "2025-03",
+      "sessions": 1300
+    },
+    {
+      "ym": "2025-04",
+      "sessions": 1300
+    },
+    {
+      "ym": "2025-05",
+      "sessions": 4100
+    },
+    {
+      "ym": "2025-06",
+      "sessions": 19400
+    },
+    {
+      "ym": "2025-07",
+      "sessions": 27500
+    },
+    {
+      "ym": "2025-08",
+      "sessions": 6800
+    },
+    {
+      "ym": "2025-09",
+      "sessions": 1900
+    },
+    {
+      "ym": "2025-10",
+      "sessions": 1600
+    },
+    {
+      "ym": "2025-11",
+      "sessions": 1600
+    },
+    {
+      "ym": "2025-12",
+      "sessions": 1400
+    },
+    {
+      "ym": "2026-01",
+      "sessions": 1000
+    },
+    {
+      "ym": "2026-02",
+      "sessions": 800
+    },
+    {
+      "ym": "2026-03",
+      "sessions": 1100
+    },
+    {
+      "ym": "2026-04",
+      "sessions": 1000
+    },
+    {
+      "ym": "2026-05",
+      "sessions": 1100
+    }
+  ]
+}

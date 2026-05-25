@@ -614,7 +614,7 @@
     <h2>Mistä luvut tulevat &amp; mitä ne tarkoittavat</h2>
     <div class="notes">
       <p style="margin:0 0 10px;"><strong>Lähde 1 — Bokún (varaukset).</strong> Pääosa luvuista on haettu suoraan Bokún REST -rajapinnasta <code>POST /booking.json/product-booking-search</code> ja suodatettu <strong>Book Turku</strong> -kanavalle (Bokún channel "Book Turku", channelId 270809). Mukaan otetaan tilat <code>CONFIRMED</code> ja <code>ARRIVED</code>; <code>CANCELLED</code> ja <code>NO_SHOW</code> näkyvät erikseen statusjakaumassa eivätkä KPI-summissa.</p>
-      <p style="margin:0 0 10px;"><strong>Lähde 2 — GA4 (sivuston liikenne).</strong> Bookturku.fi-osio käyttää Google Analytics 4 -dataa (Property 419601354, jaksot 1.1.–25.5.2026 vs 2025). Luvut on luettu GA4 Reports -käyttöliittymästä Acquisition Overview, Demografiset tiedot: Maa, ja Sivut &amp; näkymät -raporteista. Tärkeät tapahtumat (key events) = 0, koska booking-flow:n konversiota ei ole vielä määritelty GA4:ssa.</p>
+      <p style="margin:0 0 10px;"><strong>Lähde 2 — GA4 (sivuston liikenne).</strong> Bookturku.fi-osio käyttää Google Analytics 4 -dataa (Property 419601354, jaksot 1.1.–25.5.2026 vs 2025). YTD-luvut on luettu GA4 Reports -käyttöliittymästä Acquisition Overview, Demografiset tiedot: Maa, ja Sivut &amp; näkymät -raporteista. Yllä olevan kuukausigraafin GA4-istuntoviiva on luettu Liikenteen hankinta -raportin SVG-trendikäyrästä ja kalibroitu raportin kokonaislukua (155 436 istuntoa jaksolla 2024-04 → 2026-05) vastaan; tarkkuus ~0,04 % kokonaissummasta, kuukausiluvut pyöristetty lähimpään sataan. Tärkeät tapahtumat (key events) = 0, koska booking-flow:n konversiota ei ole vielä määritelty GA4:ssa.</p>
       <p style="margin:0 0 10px;"><strong>Bruttomyynti (BM) ≠ FAS-liikevaihto.</strong> BM on kanavan kautta kulkenut bruttobookingarvo. ETD/B&amp;E:n FAS-LV koostuu omasta myynnistä + komissioista (LV/BM ≈ 34%). Tätä lukua ei pidä sekoittaa hallinto­raportointiin ilman muunnosta.</p>
       <p style="margin:0 0 10px;"><strong>Jakso &amp; tuoreus.</strong> Bokún-data kattaa varaukset jaksolla, joka näkyy ylhäällä. GA4-data on YTD-vertailu 1.1.–25.5. (2026 vs 2025). <strong>Tämä on manuaalinen snapshot</strong> (Bokún 2026-05-21 saakka, GA4 päivitetty 2026-05-25). Suunnitelmissa on automaattisesti 4 h välein päivittyvä versio GitHub Actionsilla — service account <code>bookturku-ga4-reader@absolute-nexus-409409.iam.gserviceaccount.com</code> on jo luotu GA4 Data API:n käyttöä varten.</p>
       <p style="margin:0;"><strong>Tietosuoja.</strong> Ei henkilötason kenttiä — kaikki KPI:t ovat aggregaatteja. Toimittaja- ja tuotetason luvut on jätetty näkyviin tämän jakoversion osalta (CEO:n päätös 2026-05-22).</p>
@@ -654,7 +654,17 @@ document.getElementById('kpi-pax').textContent = fmtInt(t.pax);
 document.getElementById('kpi-vendors').textContent = fmtInt(t.vendors);
 document.getElementById('kpi-products').textContent = fmtInt(t.products);
 
-// Monthly chart
+// GA4 monthly sessions (luettu GA4 Liikenteen hankinta -raportin SVG:stä, kalibroitu Total = 155 436 vastaan, virhe 0,04 %)
+const GA4_MONTHLY_SESSIONS = {
+  "2024-04":7200,"2024-05":5100,"2024-06":6500,"2024-07":22900,"2024-08":18900,
+  "2024-09":5700,"2024-10":6200,"2024-11":4900,"2024-12":3000,
+  "2025-01":1900,"2025-02":1300,"2025-03":1300,"2025-04":1300,"2025-05":4100,
+  "2025-06":19400,"2025-07":27500,"2025-08":6800,"2025-09":1900,"2025-10":1600,
+  "2025-11":1600,"2025-12":1400,
+  "2026-01":1000,"2026-02":800,"2026-03":1100,"2026-04":1000,"2026-05":1100
+};
+
+// Monthly chart — Varaukset (bars, vasen) + BM € (line, oikea) + GA4 sessions (line, oikea kauempana)
 const ctx = document.getElementById('monthlyChart').getContext('2d');
 new Chart(ctx, {
   type: 'bar',
@@ -663,11 +673,12 @@ new Chart(ctx, {
     datasets: [
       {
         type: 'bar',
-        label: 'Varaukset',
+        label: 'Varaukset (Bokún)',
         data: DATA.months.map(m => m.orders),
         backgroundColor: 'rgba(44,122,148,0.85)',
         borderRadius: 4,
-        yAxisID: 'y'
+        yAxisID: 'y',
+        order: 3
       },
       {
         type: 'line',
@@ -680,7 +691,24 @@ new Chart(ctx, {
         pointBackgroundColor: '#E8744F',
         fill: true,
         tension: 0.25,
-        yAxisID: 'y1'
+        yAxisID: 'y1',
+        order: 2
+      },
+      {
+        type: 'line',
+        label: 'Bookturku.fi istunnot (GA4)',
+        data: DATA.months.map(m => GA4_MONTHLY_SESSIONS[m.ym] ?? null),
+        borderColor: '#0E4D6A',
+        backgroundColor: 'rgba(14,77,106,0)',
+        borderWidth: 2,
+        borderDash: [4, 3],
+        pointRadius: 2.5,
+        pointBackgroundColor: '#0E4D6A',
+        fill: false,
+        tension: 0.3,
+        yAxisID: 'y2',
+        order: 1,
+        spanGaps: true
       }
     ]
   },
@@ -694,7 +722,10 @@ new Chart(ctx, {
         callbacks: {
           label: (ctx) => {
             const v = ctx.parsed.y;
-            return ctx.dataset.label + ': ' + (ctx.dataset.label.includes('€') ? fmtEur(v) + ' €' : fmtInt(v));
+            if (v == null) return ctx.dataset.label + ': —';
+            if (ctx.dataset.label.includes('€')) return ctx.dataset.label + ': ' + fmtEur(v) + ' €';
+            if (ctx.dataset.label.includes('istunnot')) return ctx.dataset.label + ': ' + fmtInt(v);
+            return ctx.dataset.label + ': ' + fmtInt(v);
           }
         }
       }
@@ -704,16 +735,24 @@ new Chart(ctx, {
       y: {
         beginAtZero: true,
         position: 'left',
-        title: { display: true, text: 'Varaukset', color: '#6B7480', font: { size: 11 } },
+        title: { display: true, text: 'Varaukset', color: '#2C7A94', font: { size: 11, weight: '600' } },
         ticks: { color: '#6B7480', font: { size: 11 } },
         grid: { color: '#EFEAE0' }
       },
       y1: {
         beginAtZero: true,
         position: 'right',
-        title: { display: true, text: 'BM €', color: '#6B7480', font: { size: 11 } },
+        title: { display: true, text: 'BM €', color: '#E8744F', font: { size: 11, weight: '600' } },
         ticks: { color: '#6B7480', font: { size: 11 }, callback: v => fmtEur(v) },
         grid: { display: false }
+      },
+      y2: {
+        beginAtZero: true,
+        position: 'right',
+        title: { display: true, text: 'GA4 istunnot', color: '#0E4D6A', font: { size: 11, weight: '600' } },
+        ticks: { color: '#6B7480', font: { size: 11 }, callback: v => v >= 1000 ? (v/1000).toLocaleString('fi-FI') + ' t.' : v },
+        grid: { display: false },
+        offset: true
       }
     }
   }
