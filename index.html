@@ -293,9 +293,102 @@
     border-top: 1px solid var(--border);
   }
   footer.page a { color: var(--saaristo-mid); text-decoration: none; }
+
+  /* --- Password gate ----------------------------------------------------- */
+  .auth-locked .wrap, .auth-locked footer.page { display: none !important; }
+  #auth-gate { display: none; }
+  .auth-locked #auth-gate {
+    display: flex;
+    position: fixed; inset: 0;
+    align-items: center; justify-content: center;
+    background: var(--sand-bg);
+    z-index: 9999;
+    padding: 24px;
+  }
+  #auth-gate .card {
+    width: 100%; max-width: 380px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 28px 28px;
+    box-shadow: 0 10px 40px rgba(14,77,106,0.10);
+    text-align: center;
+  }
+  #auth-gate .mark {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 52px; height: 52px; border-radius: 12px;
+    background: var(--saaristo-deep); color: #fff;
+    font-weight: 700; font-size: 18px; letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  #auth-gate h2 {
+    margin: 0 0 6px 0; font-size: 18px; font-weight: 600; color: var(--ink);
+  }
+  #auth-gate .sub {
+    margin: 0 0 22px 0; color: var(--muted); font-size: 13px;
+  }
+  #auth-gate form { display: flex; flex-direction: column; gap: 10px; }
+  #auth-gate input[type=password] {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--ink);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #auth-gate input[type=password]:focus { border-color: var(--saaristo-mid); }
+  #auth-gate button {
+    padding: 11px 16px;
+    background: var(--saaristo-deep);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  #auth-gate button:hover { background: var(--saaristo-mid); }
+  #auth-gate .err {
+    margin-top: 10px;
+    color: var(--bad);
+    font-size: 12px;
+    min-height: 16px;
+  }
+  #auth-gate .foot {
+    margin-top: 18px;
+    font-size: 11px;
+    color: var(--soft);
+  }
 </style>
+<script>
+  // Early lock: add class before paint so .wrap never flashes for non-authed visitors
+  try {
+    if (localStorage.getItem('bt_auth_2026') !== 'ok') {
+      document.documentElement.classList.add('auth-locked');
+    }
+  } catch (e) {
+    document.documentElement.classList.add('auth-locked');
+  }
+</script>
 </head>
 <body>
+<div id="auth-gate" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+  <div class="card">
+    <div class="mark">BT</div>
+    <h2 id="auth-title">Book Turku — Trends</h2>
+    <p class="sub">Anna salasana jatkaaksesi.</p>
+    <form id="auth-form" autocomplete="off">
+      <input type="password" id="auth-pw" placeholder="Salasana" autofocus aria-label="Salasana">
+      <button type="submit">Avaa</button>
+      <div class="err" id="auth-err" aria-live="polite"></div>
+    </form>
+    <div class="foot">Visit Turku Archipelago · Elämys Group</div>
+  </div>
+</div>
 <div class="wrap">
 
   <header class="page">
@@ -349,8 +442,75 @@
 
   <!-- Monthly trend -->
   <section class="card">
-    <h2>Kuukausitrendi · varaukset &amp; bruttomyynti</h2>
+    <h2>Kuukausitrendi · varaukset, bruttomyynti &amp; bookturku.fi-istunnot</h2>
     <div class="chart-wrap"><canvas id="monthlyChart"></canvas></div>
+  </section>
+
+  <!-- Yhdistetyt avainluvut: Bokun × GA4 -->
+  <section class="card">
+    <h2>Avainluvut · varaukset × liikenne</h2>
+    <div class="notes" style="margin:-4px 0 16px;">
+      Yhdistää Bok&uacute;n-varaukset ja GA4-istunnot — paljastaa funnelin tehokkuuden ja kausivaihtelun ydinmittarit. Konversio = varaukset ÷ istunnot.
+    </div>
+
+    <div class="grid-kpi" style="grid-template-columns: repeat(4, 1fr); display:grid; gap:12px; margin-bottom:18px;">
+      <div class="kpi" style="background:var(--saaristo-tint);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:600;">AOV · keskim. varausarvo</div>
+        <div style="font-size:22px;font-weight:700;color:var(--saaristo-deep);margin-top:4px;" id="kpi2-aov">—</div>
+        <div style="font-size:12px;margin-top:2px;color:var(--muted);">€ / varaus · koko jakso</div>
+      </div>
+      <div class="kpi" style="background:var(--saaristo-tint);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:600;">Konversio</div>
+        <div style="font-size:22px;font-weight:700;color:var(--saaristo-deep);margin-top:4px;" id="kpi2-conv">—</div>
+        <div style="font-size:12px;margin-top:2px;color:var(--muted);">varauksia / istunto · koko jakso</div>
+      </div>
+      <div class="kpi" style="background:var(--saaristo-tint);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:600;">Istuntoja / varaus</div>
+        <div style="font-size:22px;font-weight:700;color:var(--saaristo-deep);margin-top:4px;" id="kpi2-spo">—</div>
+        <div style="font-size:12px;margin-top:2px;color:var(--muted);">käänteinen konversio · koko jakso</div>
+      </div>
+      <div class="kpi" style="background:var(--saaristo-tint);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:600;">Rev / istunto</div>
+        <div style="font-size:22px;font-weight:700;color:var(--saaristo-deep);margin-top:4px;" id="kpi2-rps">—</div>
+        <div style="font-size:12px;margin-top:2px;color:var(--muted);">€ / istunto · koko jakso</div>
+      </div>
+    </div>
+
+    <h3 style="margin:18px 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">Jaksovertailu · ydinmittarit</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="border-bottom:1px solid var(--border);">
+          <th style="text-align:left;padding:8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Jakso</th>
+          <th style="text-align:right;padding:8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Varaukset</th>
+          <th style="text-align:right;padding:8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">BM €</th>
+          <th style="text-align:right;padding:8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Istunnot</th>
+          <th style="text-align:right;padding:8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">AOV €</th>
+          <th style="text-align:right;padding:8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">PAX/var</th>
+          <th style="text-align:right;padding:8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Konv. %</th>
+          <th style="text-align:right;padding:8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">Sess/var</th>
+          <th style="text-align:right;padding:8px;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;">€/sess</th>
+        </tr>
+      </thead>
+      <tbody id="kpi2-table-tbody"></tbody>
+    </table>
+
+    <h3 style="margin:24px 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);font-weight:700;">YoY-vertailut · funnelin tehokkuus</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+      <div id="kpi2-yoy-ytd" style="background:var(--sand-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;"></div>
+      <div id="kpi2-yoy-summer" style="background:var(--sand-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;"></div>
+      <div id="kpi2-yoy-july" style="background:var(--sand-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;"></div>
+    </div>
+
+    <div class="notes" style="margin-top:18px;font-size:12px;background:var(--sand-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+      <strong style="color:var(--saaristo-deep);">Tärkeimmät havainnot:</strong>
+      <ul style="margin:6px 0 0;padding-left:20px;line-height:1.7;">
+        <li><strong>Funneli tehostui dramaattisesti kesällä 2025:</strong> liikenne +11 %, varaukset +47 %, konversio +32 %. Sama liikennevolyymi tuotti enemmän varauksia — joko sivuston UX, tuotekokoelma tai jakelukumppanit paranivat.</li>
+        <li><strong>Heinäkuu 2025 oli huippukuukausi kaikilla mittareilla:</strong> konversio 0,38 % (+86 % YoY), 262 istuntoa/varaus (vs 487 vuotta aiemmin), 0,29 €/istunto (vs 0,19 €).</li>
+        <li><strong>AOV laskee skaalautuessa:</strong> kesä 2024 81,8 € → kesä 2025 70,0 € — enemmän pienempiä varauksia, mikä on tervettä massamarkkinoinnin merkki.</li>
+        <li><strong>YTD 2026 hidas alku:</strong> tammi-toukokuussa varaukset −63 %, BM −73 % YoY. Mutta liikenne myös laskenut (−58 %) joten konversio (0,17 %) on lähellä vertailujaksoa. Kesä on todennäköisesti ratkaiseva.</li>
+        <li><strong>ARPU-tulkinta varauksin:</strong> Book Turku -kanavan varaukset eivät tule yksinomaan bookturku.fi:n kautta — iso osa kulkee VisitTurun (visitturku.fi) ja muiden kumppaneiden white-label-jakelusta. "Sess/var"-mittari on siis koko ekosysteemin myynti suhteessa bookturku.fi-liikenteeseen, ei pelkän bookturku.fi-funnelin mittari. Real-funneli vaatii GA4-konversiotapahtuman määrittelyn (key event).</li>
+      </ul>
+    </div>
   </section>
 
   <!-- YoY card -->
@@ -758,6 +918,86 @@ new Chart(ctx, {
   }
 });
 
+// ===== Yhdistetyt avainluvut (Bokun × GA4) =====
+const KPI2 = {
+  total_history: {name:"Koko jakso 2024-04 → 2026-05", orders:423, gross_eur:32754, pax:956, sessions:154700, aov_eur:77.4, rev_per_pax_eur:34.3, pax_per_order:2.26, conv_rate_pct:0.273, sessions_per_order:366, rev_per_session_eur:0.212},
+  ytd_2026: {name:"YTD 2026 (tammi–touko)", orders:7, gross_eur:821, pax:20, sessions:4200, aov_eur:117.3, rev_per_pax_eur:41.0, pax_per_order:2.86, conv_rate_pct:0.167, sessions_per_order:600, rev_per_session_eur:0.195, active_users_ga4:4115, rev_per_active_user_eur:0.20},
+  ytd_2025: {name:"YTD 2025 (tammi–touko)", orders:19, gross_eur:3053, pax:75, sessions:9900, aov_eur:160.7, rev_per_pax_eur:40.7, pax_per_order:3.95, conv_rate_pct:0.192, sessions_per_order:521, rev_per_session_eur:0.308, active_users_ga4:5453, rev_per_active_user_eur:0.56},
+  summer_2024: {name:"Kesä 2024 (kesä–elo)", orders:127, gross_eur:10392, pax:277, sessions:48300, aov_eur:81.8, rev_per_pax_eur:37.5, pax_per_order:2.18, conv_rate_pct:0.263, sessions_per_order:380, rev_per_session_eur:0.215},
+  summer_2025: {name:"Kesä 2025 (kesä–elo)", orders:186, gross_eur:13028, pax:393, sessions:53700, aov_eur:70.0, rev_per_pax_eur:33.2, pax_per_order:2.11, conv_rate_pct:0.346, sessions_per_order:289, rev_per_session_eur:0.243},
+  peak_jul_2024: {name:"Heinäkuu 2024", orders:47, gross_eur:4333, pax:113, sessions:22900, aov_eur:92.2, rev_per_pax_eur:38.3, pax_per_order:2.40, conv_rate_pct:0.205, sessions_per_order:487, rev_per_session_eur:0.189},
+  peak_jul_2025: {name:"Heinäkuu 2025", orders:105, gross_eur:8073, pax:230, sessions:27500, aov_eur:76.9, rev_per_pax_eur:35.1, pax_per_order:2.19, conv_rate_pct:0.382, sessions_per_order:262, rev_per_session_eur:0.294}
+};
+
+// KPI-tiilet (koko jakso)
+const kpi2Total = KPI2.total_history;
+document.getElementById('kpi2-aov').textContent = kpi2Total.aov_eur.toLocaleString('fi-FI', {minimumFractionDigits:1, maximumFractionDigits:1}).replace('.', ',') + ' €';
+document.getElementById('kpi2-conv').textContent = kpi2Total.conv_rate_pct.toLocaleString('fi-FI', {minimumFractionDigits:2, maximumFractionDigits:2}).replace('.', ',') + ' %';
+document.getElementById('kpi2-spo').textContent = fmtInt(kpi2Total.sessions_per_order);
+document.getElementById('kpi2-rps').textContent = kpi2Total.rev_per_session_eur.toLocaleString('fi-FI', {minimumFractionDigits:2, maximumFractionDigits:2}).replace('.', ',') + ' €';
+
+// Jaksovertailu-taulukko
+const kpi2Body = document.getElementById('kpi2-table-tbody');
+const periodsOrder = ['total_history','ytd_2026','ytd_2025','summer_2024','summer_2025','peak_jul_2024','peak_jul_2025'];
+const fmtNum = (n, d=0) => n == null ? '—' : n.toLocaleString('fi-FI', {minimumFractionDigits:d, maximumFractionDigits:d}).replace('.', ',');
+periodsOrder.forEach((k, i) => {
+  const r = KPI2[k];
+  const isTotal = k === 'total_history';
+  const isYtd = k.startsWith('ytd');
+  const isSummer = k.startsWith('summer');
+  const isPeak = k.startsWith('peak');
+  let groupStyle = '';
+  if (isYtd && k === 'ytd_2026') groupStyle = 'background:rgba(232,116,79,0.04);';
+  if (isSummer && k === 'summer_2025') groupStyle = 'background:rgba(74,157,107,0.04);';
+  if (isPeak && k === 'peak_jul_2025') groupStyle = 'background:rgba(74,157,107,0.04);';
+  kpi2Body.insertAdjacentHTML('beforeend', `
+    <tr style="border-bottom:1px solid var(--border);${groupStyle}">
+      <td style="padding:8px;${isTotal?'font-weight:600;':''}">${escapeHtml(r.name)}</td>
+      <td style="padding:8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtInt(r.orders)}</td>
+      <td style="padding:8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtEur(r.gross_eur)}</td>
+      <td style="padding:8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtInt(r.sessions)}</td>
+      <td style="padding:8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtNum(r.aov_eur, 1)}</td>
+      <td style="padding:8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtNum(r.pax_per_order, 2)}</td>
+      <td style="padding:8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtNum(r.conv_rate_pct, 3)}</td>
+      <td style="padding:8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtInt(r.sessions_per_order)}</td>
+      <td style="padding:8px;text-align:right;font-variant-numeric:tabular-nums;">${fmtNum(r.rev_per_session_eur, 3)}</td>
+    </tr>
+  `);
+});
+
+// YoY-vertailupanelit
+function yoyCard(elId, title, prevKey, currKey) {
+  const p = KPI2[prevKey], c = KPI2[currKey];
+  const metrics = [
+    {k:'orders', label:'Varaukset', fmt:v=>fmtInt(v)},
+    {k:'gross_eur', label:'BM €', fmt:v=>fmtEur(v) + ' €'},
+    {k:'sessions', label:'Istunnot', fmt:v=>fmtInt(v)},
+    {k:'conv_rate_pct', label:'Konversio %', fmt:v=>fmtNum(v, 2) + ' %'},
+    {k:'sessions_per_order', label:'Sess/var', fmt:v=>fmtInt(v)},
+    {k:'rev_per_session_eur', label:'€/sess', fmt:v=>fmtNum(v, 3) + ' €'}
+  ];
+  const rows = metrics.map(m => {
+    const pv = p[m.k], cv = c[m.k];
+    const delta = pv ? (cv/pv - 1) * 100 : null;
+    let badge = '';
+    if (delta !== null) {
+      const color = delta > 0 ? '#4A9D6B' : delta < 0 ? '#C45A3F' : 'var(--muted)';
+      const arrow = delta > 0 ? '↑' : delta < 0 ? '↓' : '·';
+      const sign = delta > 0 ? '+' : '';
+      badge = `<span style="color:${color};font-weight:600;font-size:11px;margin-left:6px;">${arrow}${sign}${delta.toFixed(0)}%</span>`;
+    }
+    return `<tr><td style="padding:3px 0;color:var(--muted);font-size:12px;">${m.label}</td><td style="padding:3px 0;text-align:right;font-variant-numeric:tabular-nums;font-size:12px;">${m.fmt(cv)}${badge}</td></tr>`;
+  }).join('');
+  document.getElementById(elId).innerHTML = `
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--saaristo-deep);font-weight:700;margin-bottom:6px;">${title}</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">${escapeHtml(p.name)} → ${escapeHtml(c.name)}</div>
+    <table style="width:100%;border-collapse:collapse;">${rows}</table>
+  `;
+}
+yoyCard('kpi2-yoy-ytd', 'YTD-vertailu', 'ytd_2025', 'ytd_2026');
+yoyCard('kpi2-yoy-summer', 'Kesäkausi YoY', 'summer_2024', 'summer_2025');
+yoyCard('kpi2-yoy-july', 'Heinäkuu YoY', 'peak_jul_2024', 'peak_jul_2025');
+
 // All products
 document.getElementById('products-count').textContent = fmtInt(DATA.products_all.length);
 const prodBody = document.getElementById('products-tbody');
@@ -1078,6 +1318,47 @@ GA4.top_pages.forEach(p => {
     </tr>
   `);
 });
+</script>
+<script>
+  // Password gate handler — shared password, SHA-256 hash compare, localStorage persistence.
+  (function () {
+    var EXPECTED = '4222b761f3aecb0ac8543ee668d7b14e11f7bfaef8b84c219327bc7248fc1d4d';
+    var form = document.getElementById('auth-form');
+    if (!form) return;
+
+    function unlock() {
+      try { localStorage.setItem('bt_auth_2026', 'ok'); } catch (e) {}
+      document.documentElement.classList.remove('auth-locked');
+      var gate = document.getElementById('auth-gate');
+      if (gate && gate.parentNode) gate.parentNode.removeChild(gate);
+    }
+
+    async function sha256Hex(str) {
+      var buf = new TextEncoder().encode(str);
+      var hash = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(hash)).map(function (b) {
+        return b.toString(16).padStart(2, '0');
+      }).join('');
+    }
+
+    form.addEventListener('submit', async function (ev) {
+      ev.preventDefault();
+      var pw = document.getElementById('auth-pw').value || '';
+      var err = document.getElementById('auth-err');
+      err.textContent = '';
+      try {
+        var h = await sha256Hex(pw.trim());
+        if (h === EXPECTED) {
+          unlock();
+        } else {
+          err.textContent = 'Väärä salasana.';
+          document.getElementById('auth-pw').select();
+        }
+      } catch (e) {
+        err.textContent = 'Tarkistus epäonnistui — päivitä sivu.';
+      }
+    });
+  })();
 </script>
 </body>
 </html>
